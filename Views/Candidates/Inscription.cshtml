@@ -1,0 +1,73 @@
+﻿@model WeCountRecrutementWebsite.Models.CandidateModel
+@{
+    ViewData["Title"] = "Join Us";
+}
+
+<div class="inscription-form">
+    @{
+        if (ViewBag.Message != null)
+        {
+            <div class="inscription-display-message">
+                Message: @ViewBag.Message
+            </div>
+        }
+    }
+    <div class="inscription-form-content">
+        <h1>Join Us</h1>
+        @using (Html.BeginForm("Inscription", "Candidates", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    First Name :
+                </label>
+                @Html.TextBoxFor(model => model.firstName, new { @required = "required", autocomplete = "off", placeholder = "Ex: John" })
+            </div>
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    Last Name :
+                </label>
+                @Html.TextBoxFor(model => model.lastName, new { @required = "required", autocomplete = "off", placeholder = "Ex: Doe" })
+            </div>
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    Email :
+                </label>
+                @Html.TextBoxFor(model => model.email, new { @required = "required", autocomplete = "off", type = "email", placeholder = "Ex: johndoe@gmail.com" })
+            </div>
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    Phone Number :
+                </label>
+                @Html.TextBoxFor(model => model.phoneNumber, new { @required = "required", autocomplete = "off", type = "number", placeholder = "Ex: 0600000000" })
+            </div>
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    Studies Level :
+                </label>
+                @Html.DropDownListFor(model => model.studiesLevel, new SelectList(ViewBag.levels, "Text", "Value"))
+            </div>
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    Years Of Experience :
+                </label>
+                @Html.TextBoxFor(model => model.yearsOfExperience, new { @required = "required", autocomplete = "off", type = "number", placeholder = "Ex: 2"})
+            </div>
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    Last Employe :
+                </label>
+                @Html.TextBoxFor(model => model.lastEmploye, new { @required = "required", autocomplete = "off", placeholder = "Ex: John Doe Campany" })
+            </div>
+            <div class="inscription-form-item">
+                <label for="username" class="label-name">
+                    Upload Your CV :
+                </label>
+                @Html.TextBoxFor(model => model.CV, new { @required = "required", autocomplete = "off", type = "File", accept=".pdf,.jpg,.jpge,.png" })
+            </div>
+            <div class="d-flex justify-content-center">
+                @Html.AntiForgeryToken()
+                <input class="btn-join" type="submit" value="Join">
+            </div>
+        }
+    </div>
+</div>

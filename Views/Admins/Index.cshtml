@@ -1,0 +1,62 @@
+﻿@model IList<WeCountRecrutementWebsite.Models.Candidate>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1>All Candidates</h1>
+<hr class="dashboard-devider" />
+<form asp-action="Index" asp-controller="Admins" class="sort-form">
+    Sort By :
+    <select name="findBy" id="findBy">
+        <option value="">Please Select A Field</option>
+        <option value="firstName">Search By First Name</option>
+        <option value="lastName">Search By Last Name</option>
+        <option value="email">Search By Email</option>
+        <option value="phoneNumber">Search By Phone Number</option>
+    </select>
+    <input name="findValue" id="findValue" autocomplete="off"/>
+    <input class="btnSubmit" value="Submit" type="submit" />
+    <input class="btnClear" value="Clear" type="submit" />
+</form>
+<table class="table">
+    <thead>
+       <th>First Name</th> 
+       <th>Last Name</th> 
+       <th>Email</th> 
+       <th>Phone Number</th> 
+       <th>Studies Level</th> 
+       <th>Years Of Experience</th> 
+       <th>Last Employe</th> 
+       <th>Actions</th> 
+    </thead>
+    <tbody>
+        @foreach(Candidate candidate in Model){
+            <tr>
+                <td data-label="First Name :">@candidate.firstName</td>
+                <td data-label="Last Name :">@candidate.lastName</td>
+                <td data-label="Email :">@candidate.email</td>
+                <td data-label="Phone Number :">@candidate.phoneNumber</td>
+                <td data-label="Studies Level :">@candidate.studiesLevel</td>
+                <td data-label="Years Of Experience :">@candidate.yearsOfExperience</td>
+                <td data-label="Last Employe :">@candidate.lastEmploye</td>
+                <td data-label="Actions :">
+                    <a href="@candidate.cvUrl" class="btn showCvBtn" target="_blank">Show CV</a>
+                    <a asp-controller="Admins" asp-action="DeleteCandidate" asp-route-candidateId="@candidate.id" class="btn deleteCandidateBtn">Delete</a>
+                </td>
+            </tr>
+        }   
+    </tbody>
+</table>
+
+<script>
+    const deleteCandidateBtns = document.querySelectorAll(".deleteCandidateBtn");
+
+    deleteCandidateBtns.forEach((deleteCandidateBtn) => {
+        deleteCandidateBtn.addEventListener("click", (e) => {
+            var result = confirm("Are you sure you want to delete this Candidate ? \nIf you delete it there is no way back !");
+            if (!result) {
+                e.preventDefault();
+            }
+        });
+    })
+</script>

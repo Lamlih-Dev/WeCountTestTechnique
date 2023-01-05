@@ -1,0 +1,54 @@
+﻿@inject IHttpContextAccessor accessor;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - We Count Recrutement Website</title>
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-content container">
+                <a asp-controller="Home" asp-action="Index" class="logo">
+                    <img src="~/images/logo.svg" />
+                </a>
+                <img class="humberger" src="~/images/humberger.png" />
+                <img class="X hide" src="~/images/x.png" />
+                <div class="nav-items">
+                    <a href="#" class="nav-item">Home</a>
+                    <a href="#" class="nav-item">About Us</a>
+                    <a href="#" class="nav-item">Contact</a>
+                    <a asp-controller="Candidates" asp-action="Inscription" class="nav-item">Join Us</a>
+                    @if (accessor.HttpContext.Session.GetInt32("LoggedIn") == 0){
+                        <a asp-controller="Admins" asp-action="Login" class="nav-item">Login</a>
+                    }else{
+                        <a asp-controller="Admins" asp-action="Index" class="nav-item">Dashboard</a>
+                        <a asp-controller="Admins" asp-action="Logout" class="nav-item">Logout</a>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="main">
+            @RenderBody()
+        </main>
+    </div>
+    <footer class="footer container">
+        <hr />
+        <div class="footer-content">
+            <img src="~/images/logoBlack.svg" />
+            <div>
+                &copy; 2023
+            </div>
+        </div>
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/app.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

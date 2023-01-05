@@ -1,0 +1,50 @@
+﻿@model WeCountRecrutementWebsite.Models.Admin
+@{
+    ViewData["Title"] = "Admin Space";
+}
+
+<div class="login">
+    <div class="login-content">
+        <div class="login-left">
+            <div class="login-left-header">
+                <h1>ADMIN PAGE<span>WE COUNT</span></h1>
+            </div>
+            <p>This page is for wecount administarots, so please if you are not a one of them leave this page immediately ! any illegal activity done through this page will cause you problems.</p>
+        </div>
+        <div class="login-right">
+            <div class="login-right-card">
+                @using (Html.BeginForm("Login", "Admins", FormMethod.Post, new { @class = "login-right-content" }))
+                {
+                    <h1>LOGIN</h1>
+                    <div class="line"></div>
+                    <label for="username">Username :</label>
+                    @Html.TextBoxFor(model => model.username, new { @required = "required", autocomplete = "off" })
+                    
+                    @if(ViewBag.usernameError != null){
+                        <p class="msg-error">
+                            @ViewBag.usernameError
+                        </p>
+                    }
+
+                    <label for="password">Password :</label>
+                    @Html.PasswordFor(model => model.password, new { @required = "required" })
+
+                    @if(ViewBag.passwordError != null){
+                        <p class="msg-error">
+                            @ViewBag.passwordError
+                        </p>
+                    }
+
+                    @Html.AntiForgeryToken()
+                    <input type="submit" name="submit" value="Login">
+                }
+
+                @if(ViewBag.credentialError != null){
+                    <p class="msg-error">
+                        @ViewBag.credentialError
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
